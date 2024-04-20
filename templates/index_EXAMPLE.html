@@ -48,7 +48,7 @@
         <div id="messages-view">
             <!-- Messages will be dynamically inserted here -->
         </div>
-        <form id="message-form">
+        <form id="message-form" action="/" method="post">
             <input type="text" id="message-input" name="message" placeholder="Type a message..." required>
             <button type="submit" id="send-button">Send</button>
         </form>
@@ -57,19 +57,21 @@
     document.getElementById('message-form').addEventListener('submit', function(e) {
         e.preventDefault();
         var inputMessage = document.getElementById('message-input').value;
-        fetch('/chat/', {
+        fetch('/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: 'message=' + encodeURIComponent(inputMessage)
         })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('messages-view').innerHTML += '<div>You: ' + inputMessage + '</div>';
-            document.getElementById('messages-view').innerHTML += '<div>AI Agent: ' + data.message + '</div>';
-        })
-        .catch(error => console.error('Error:', error));
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('messages-view').innerHTML += '<div>' + inputMessage + '</div>';
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            var serverMessage = doc.querySelector('#messages-view').textContent.trim();
+            document.getElementById('messages-view').innerHTML += '<div>' + serverMessage + '</div>';
+        });
     });
     </script>
 </body>
