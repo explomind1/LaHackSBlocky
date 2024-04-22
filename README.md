@@ -1,5 +1,8 @@
 # LaHackSBlocky
 
+![Blocky](https://github.com/explomind1/LaHacksBlocky/assets/130941980/009f3584-9f06-47e0-ac48-dbc0a170a01f)
+
+
 ![Blocky_Architecture](https://github.com/explomind1/LaHacksBlocky/assets/130941980/e7c28219-8309-416e-beab-0c7bb8e1e988)
 
 
